@@ -21,7 +21,7 @@ $password = $_POST['password'];
 // 사용자명 또는 비밀번호 중 하나라도 입력하지 않았으면 
 // 다시 LoginForm 화면으로 돌려보낸다.
 if(empty($username) || empty($password) ) {
-  echo "<script>alert('사용사명 또는 비밀번호를 확인해주세요.');</script>";
+  echo "<script>alert('사용자명 또는 비밀번호를 확인해주세요.');</script>";
   header('Location: step1_LoginForm.php');
   // empty와 null 차이 
 }
