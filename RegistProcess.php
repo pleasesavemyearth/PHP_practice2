@@ -34,9 +34,14 @@ if ($number > 0) {
 // 6.2 없으면 다음 단계로 진행
 
 //7. sql 구성 !반점 하나 빠져서 db등록이 안됬었음..
-$sql = "INSERT INTO jh_user(userid, userpwd, username, useremail, usercellphone) VALUES('". $userid . "','". $password ."', '". $username . "', '" . $useremail . "', '" . $usercellphone . "')";
+// $sql = "INSERT INTO jh_user(userid, userpwd, username, useremail, usercellphone) VALUES('". $userid . "','". $password ."', '". $username . "', '" . $useremail . "', '" . $usercellphone . "')"; 기본
+//$sql = $dbconn -> stmt_init();
+$sql = $dbconn -> prepare("INSERT INTO jh_user(userid, userpwd, username, useremail, usercellphone) VALUES(?, sha2(?,256), ?, ?, ?)");
+//$sql = "INSERT INTO jh_user (userid, userpwd, username, useremail, usercellphone) VALUES('".$userid."', sha2('".$password."', 256),'". $username . "', '" . $useremail . "', '" . $usercellphone . "')"; 
+$sql->bind_param("sssss", $userid, $password, $username, $useremail, $usercellphone);
+$sql->execute();
 
-//8. 질의어 실행
+//8. 질의어 실행 !!! $mysql_stmt를 추가하면 한번은 되는데 다음부턴 또 안됨
 $result = mysqli_query($dbconn, $sql);
 
 // 9. login폼으로 이동
@@ -46,5 +51,7 @@ if ($result) {
 
   } 
 // !! 회원가입을 누르면 자꾸 loginsuccess.php로 넘어가는 이유 : registform의 form태그의 action을 loginprocess로 받아주고 있었음..;;
-// !!! 회원가입시 db에 id만 등록이 되고 나머진 안됨
+
+// 문제 정리 : 회원가입정보 입력후 클릭하면 db에 정보는 등록이 되지만 LoginForm으로 넘어가지 못하고 에러가 뜸
+
 ?>
