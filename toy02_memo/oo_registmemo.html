@@ -7,16 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+
     <form action ="oo_registmemo.php" method="POST">
-    <h1>Memo Writing</h1> 
+    <h1>메모 쓰기</h1> 
     제목<input type="text" name="title"/><br>
     내용<br>
     <textarea cols="50" rows="10" name="content"></textarea><br>
     <input type="submit" value="등록"/>
     <input type="reset"/> 
-    <input type="submit" value="목록" onclick="location.href='oo_memolistform.html'"/>
+    <input type="submit" value="목록" onclick="location.href='oo_memolistform.php'"/>
     </form>
-
+<!-- !목록을 클릭시 등록과 같은 기능을 수행함, 등록없이 글 목록으로만 와야 함! -->
 
 </body>
 </html>

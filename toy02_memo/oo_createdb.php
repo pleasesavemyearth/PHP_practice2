@@ -1,14 +1,3 @@
-<!-- 
-  파일명 : oo_init_createdb.php
-  최초작업자 : swcodingschool
-  최초작성일자 : 2021-12-28
-  업데이트일자 : 2021-12-28
-  
-  기능: 
-  DBMS 시스템에 접속, 시스템이 동작하는데 필요한 Database(toymembership) 를 생성한다.
-  이 코드는 납품시 최초 1 회 실행하며, 백업에 대한 고려는 하지 않았다.
--->
-
 <?php
 // toy project의 이름을 먼저 정의한다.
 // adbconfig.php 파일에도 같은 이름으로 입력한다.
@@ -43,32 +32,28 @@ if ($conn->query($sql) == TRUE) {
   if (DBG) echo outmsg(DROPUSER_SUCCESS);
 }
 
-// 애플리케이션이 사용할 계정을 생성하고 동일한 이름의  데이터베이스를 생성한다.
-// $sql = "CREATE DATABASE IF NOT EXISTS toymembership";
-// 여러개의 sql명령어를 하나의 sql 스트링으로 처리시 오류 발생함!!
-// 다음의 4 단계로 나누어 처리하도록 수정함!!
-// 1. 사용자 계정을 생성하고, 
-// 2. 리소스 제한 없이 사용하도록 권한을 부여하고,
-// 3. 데이터베이스를 생성하고,
-// 4. 생성된 사용자 계정에 데이터베이스에 대한 모든 권한을 부여 
+// 애플리케이션이 사용할 계정을 생성하고 동일한 이름의  데이터베이스를 생성한다. 
 $sql = "CREATE USER IF NOT EXISTS '".$dbname."'@'%' IDENTIFIED BY '".$dbname."'";
 if ($conn->query($sql) == TRUE) {
   if (DBG) echo outmsg(CREATEUSER_SUCCESS);
 } else {
   echo outmsg(CREATEUSER_FAIL);
 }
+
 $sql = "GRANT USAGE ON *.* TO '".$dbname."'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0";
 if ($conn->query($sql) == TRUE) {
   if (DBG) echo outmsg(LIMITRSC_SUCCESS);
 } else {
   echo outmsg(LIMITRSC_FAIL);
 }
+
 $sql = "CREATE DATABASE IF NOT EXISTS `".$dbname."`";
 if ($conn->query($sql) == TRUE) {
   if (DBG) echo outmsg(CREATEDB_SUCCESS);
 } else {
   echo outmsg(CREATEDB_FAIL);
 }
+
 $sql = "GRANT ALL PRIVILEGES ON `".$dbname."`.* TO '".$dbname."'@'%';  ";
 if ($conn->query($sql) == TRUE) {
   if (DBG) echo outmsg(GRANTUSER_SUCCESS);
@@ -87,4 +72,5 @@ if(DBG) echo outmsg(COMMIT_CODE);
 // 작업 실행 단계별 메시지 확인을 위해 Confrim and return to back하도록 수정함!!
 // 백그라운드로 처리되도록 할 경우 위의 원 코드로 대체 할 것!!
 echo "<a href='./index.php'>Confirm and Return to back</a>";
+
 ?>

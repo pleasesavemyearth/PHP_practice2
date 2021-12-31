@@ -1,17 +1,3 @@
-<!-- 
-  파일명 : asysconfig.php
-  최초작업자 : swcodingschool
-  최초작성일자 : 2021-12-28
-  업데이트일자 : 2021-12-28
-  
-  기능: 
-  시스템 환경 설정 변수
-  시스템내 각 코드들이 메시지 출력을 좀더 단순하게 하도록 메시지 내용을 정의하고
-  메시지출력용 함수를 정의함.
-  이 코드는 adbconfig를 통해 단 한번만 include 되도록 하여야 
-  const의 중복 정의로 인한 오류를 피할 수 있다.
--->
-
 <?php
 // 개발단계 디버그 모드 
   const DBG = TRUE;  // 개발 중 DBG 모드일 때 TRUE, 운영 시 FALSE로 토글시킨다
@@ -67,4 +53,5 @@
   function outmsg($msg){
     return "<script>alert('".$msg."')</script>";
   }
+
 ?>

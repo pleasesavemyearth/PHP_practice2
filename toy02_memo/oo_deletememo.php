@@ -1,1 +1,13 @@
-4.4 삭제 버튼을 클릭하면 삭제 처리 후 목록화면으로 이동한다.
+<?php 
+require './adbconfig.php';
+
+// ! 삭제되지않음 ! 
+
+$id = $_GET['id'];
+$sql = "DELETE FROM users WHERE id='".$id."'";
+
+$conn->close();
+
+header('Location: oo_memolistform.php');
+
+?>
