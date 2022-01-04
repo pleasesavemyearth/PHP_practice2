@@ -1,5 +1,5 @@
 <!-- 
-  파일명 : adbconfig.php // 원랜 util이란 별개의 폴더 만들어서 관리함, db인데 맨 앞으로 뜨게하기 위해 a를 붙임 
+  파일명 : adbconfig.php
   최초작업자 : swcodingschool
   최초작성일자 : 2021-12-28
   업데이트일자 : 2021-12-28
@@ -11,9 +11,9 @@
 -->
 <?php
 // 프로젝트 시작 전 toyappname을 정한다.
-// oo_init_createdb에도 같은 이름으로 입력한다.
+// init_createdb에도 같은 이름으로 입력한다.
 //============================
-$toyappname = 'toyproj';
+$toyappname = 'toymembership';
 //============================
 
 $dbservername = 'localhost'; // 개발 및 테스트 환경에서는 localhost를 전제로 한다.
@@ -30,11 +30,10 @@ require_once "asysconfig.php"; // 시스템 관리를 위한 각종 환경 변�
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
 // check connection : 연결 확인, 오류가 있으면 메시지 출력 후 프로세스 종료
-if($conn->connect_error) {
+if ($conn->connect_error) {
   echo outmsg(DBCONN_FAIL);
-  die("연결실패 :".$conn->connect_error);
-}else {
-  if(DBG) echo outmsg(DBCONN_SUCCESS);
+  die("연결실패 :" . $conn->connect_error);
+} else {
+  if (DBG) echo outmsg(DBCONN_SUCCESS);
 }
-
 ?>
